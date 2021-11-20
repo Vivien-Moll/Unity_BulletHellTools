@@ -5,7 +5,7 @@ using UnityEngine;
     using UnityEditor;
 #endif
 
-//[ExecuteAlways]
+
 public class LevelManager : MonoBehaviour
 {
     public static List<GameObject> spawnerList = new List<GameObject>();
@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if ((Application.IsPlaying(this))&&(resetAllOnPlay))
+        if (resetAllOnPlay) // If true enables all spawners on play
         {
             Reset();
         }
@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void RefreshSpawners()
+    public void RefreshSpawners() // Enables all spawners within the time window, disables all those outside the window
     {
         foreach(GameObject spawn in spawnerList)
         {
@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void Reset() // Enables all spawners 
     {
         var templist = GameObject.FindGameObjectsWithTag("WaveSpawner");
 
@@ -74,7 +74,7 @@ public class LevelManagerEditor : Editor
 
         EditorGUILayout.Space(20);
 
-        if (GUILayout.Button("Reset"))
+        if (GUILayout.Button("Reset all spawners"))
         {
             manager.Reset();
         }
